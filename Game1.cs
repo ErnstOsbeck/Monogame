@@ -14,6 +14,8 @@ public class Game1 : Game
 
     Texture2D pixel;
 
+    Enemy enemy;
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -35,6 +37,7 @@ public class Game1 : Game
         pixel.SetData(new Color[]{Color.White});
 
         player = new Player(pixel);
+        enemy = new Enemy(pixel, new Vector2(400,10));
 
         // TODO: use this.Content to load your game content here
     }
@@ -44,19 +47,20 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
         player.Update();
+        enemy.Update();
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Navy);
 
         // TODO: Add your drawing code here
             
             _spriteBatch.Begin();
             player.Draw(_spriteBatch);
+            enemy.Draw(_spriteBatch);
             _spriteBatch.End();
 
         base.Draw(gameTime);
